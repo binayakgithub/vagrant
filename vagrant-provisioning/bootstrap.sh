@@ -6,7 +6,7 @@ yum update -y >/dev/null 2>&1
 
 # Install desired packages
 echo "[TASK 2] Installing desired packages"
-yum install -y -q vim redhat-lsb-core net-tools bind-utils >/dev/null 2>&1
+yum install -y -q vim redhat-lsb-core net-tools bind-utils wget >/dev/null 2>&1
 
 # Set up global aliases and exports
 echo "[TASK 3] Creating global aliases and functions"
@@ -33,7 +33,7 @@ sed -i --follow-symlinks 's/^SELINUX=enforcing/SELINUX=disabled/' /etc/sysconfig
 
 # Set Root password
 echo "[TASK 6] Set root password"
-echo "admin" | passwd --stdin root >/dev/null 2>&1
+echo "redhat" | passwd --stdin root >/dev/null 2>&1
 
 # Disable and stop firewalld
 echo "[TASK 5] Disable and stop firewalld"
@@ -43,6 +43,7 @@ systemctl stop firewalld
 # Update hosts file
 echo "[TASK 6] Update /etc/hosts file"
 cat >>/etc/hosts<<EOF
-172.42.42.10 server.example.com server
-172.42.42.20 client.example.com client
+192.168.56.10 master.example.com master
+192.168.56.11 node1.example.com node1
+192.168.56.12 node2.example.com node2
 EOF
